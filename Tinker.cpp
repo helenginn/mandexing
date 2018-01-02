@@ -155,6 +155,8 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	overlayView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	overlayView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	overlayView->show();
+
+	_detector.setCrystal(&_crystal);
 }
 
 void Tinker::resizeEvent(QResizeEvent *event)
@@ -312,7 +314,7 @@ void Tinker::transformToDetectorCoordinates(int *x, int *y)
 
 void Tinker::drawPredictions()
 {
-	_detector.calculatePositions(_crystal);
+	_detector.calculatePositions();
 	qDeleteAll(overlay->items());
 	overlay->clear();
 	
@@ -330,15 +332,22 @@ void Tinker::drawPredictions()
 	
 	int ellipseSize = 10;
 	
-	for (int i = 0; i < _detector.positionCount(); i++)
+	for (int i = 0; i < _crystal.millerCount(); i++)
 	{
+		bool onImage = _crystal.shouldDisplayMiller(i);
+
+		if (!onImage)
+		{
+			continue;
+		}
+		
 		double weight = _crystal.weightForMiller(i);
 		if (weight < 0) continue;
 		
-		vec3 pos = _detector.position(i);
+		vec3 pos = _crystal.position(i);
 		
 		QPen pen = QPen(QColor(0, 0, 0, (1 - weight) * 255));
-		bool watching = overlayView->isBeingWatched(i);
+		bool watching = _crystal.isBeingWatched(i);
 		
 		if (_refineStage != 1) watching = false;
 		
@@ -691,7 +700,7 @@ void Tinker::startRefinement()
 	mead->setCycles(15);
 	mead->refine();
 	
-	_crystal.clearUp();
+	_crystal.clearUpRefinement();
 	_refineStage = 0;
 	bRefine->setText("Refine");
 	

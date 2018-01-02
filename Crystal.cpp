@@ -87,14 +87,8 @@ void Crystal::setUnitCell(std::vector<double> cellDims)
 void Crystal::quickCheckMillers()
 {
 /* duplicated code - work out best fix */
-    _millers.clear();
-    _weights.clear();
-    _watchedSizes.clear();
-    _picked.clear();
-    _millers.reserve(_indices.size());
-    _weights.reserve(_indices.size());
 
-    std::cout << "Checking " << _indices.size() << " stored Millers." << std::endl;
+    std::cout << "Checking " << _reflections.size() << " stored Millers." << std::endl;
 
     vec3 samplePos = make_vec3(0, 0, - 1 / _wavelength);
     double minLength = 1 / _wavelength - _rlpSize;
@@ -102,13 +96,16 @@ void Crystal::quickCheckMillers()
     double minLengthSq = minLength * minLength;
     double maxLengthSq = maxLength * maxLength;
     
-    mat3x3 three = getNudge(_horiz, _vert, 0);
-    mat3x3 combined = mat3x3_mult_mat3x3(three, _rotation);
-    
-    for (unsigned int i = 0; i < _indices.size(); i++)
+	mat3x3 three = getNudge(_horiz, _vert, 0);
+
+    for (unsigned int i = 0; i < _reflections.size(); i++)
     {
-        vec3 abc = _indices[i];
-        mat3x3_mult_vec(combined, &abc);
+		Reflection *refl = &(_reflections[i]);
+        vec3 abc = make_vec3(refl->h, refl->k, refl->l);
+
+		mat3x3_mult_vec(_unitCell, &abc);
+		mat3x3_mult_vec(_rotation, &abc);
+		mat3x3_mult_vec(three, &abc);
         
         vec3 diff = vec3_subtract_vec3(abc, samplePos);
         
@@ -116,6 +113,7 @@ void Crystal::quickCheckMillers()
         
         if (sqLength < minLengthSq || sqLength > maxLengthSq)
         {
+			refl->onImage = false;
             continue;
         }
         
@@ -123,23 +121,16 @@ void Crystal::quickCheckMillers()
         double size = fabs(1 / _wavelength - length) / (_rlpSize);
         if (size < 0) size = 0;
         if (size > 1) size = 1;
-        
-        if (isBeingWatched(i))
-        {
-            _watchedSizes.push_back(size);
-        }
-
-        _weights.push_back(size);
-        _millers.push_back(abc);
-        _picked.push_back(i);
+		refl->onImage = true;
+		refl->weight = size;
+		refl->miller = abc;
     }
 }
 
 void Crystal::populateMillers()
 {
     std::cout << "Populating millers" << std::endl;
-    _millers.clear();
-    _indices.clear();
+    _reflections.clear();
     int aMax = _cellDims[0] / _resolution;
     int bMax = _cellDims[1] / _resolution;
     int cMax = _cellDims[2] / _resolution;
@@ -152,8 +143,7 @@ void Crystal::populateMillers()
     minLength -= _rlpSize * 2;
     double minBuffer = minLength * minLength;
     double maxBuffer = maxLength * maxLength; 
-    _picked.clear();
-  
+
     std::cout << minLengthSq << " " << maxLengthSq << std::endl;
     
     for (int a = -aMax; a <= aMax; a++)
@@ -169,40 +159,33 @@ void Crystal::populateMillers()
                 if (sysabs) continue;
 
                 mat3x3_mult_vec(_unitCell, &abc);
-                vec3 abcCopy = abc;
                 mat3x3_mult_vec(_rotation, &abc);
                 
                 vec3 diff = vec3_subtract_vec3(abc, samplePos);
                 
                 double sqLength = vec3_sqlength(diff);
-                
-                if (sqLength > minBuffer && sqLength < maxBuffer)
-                {
-                     _indices.push_back(abcCopy);
-                }
-                
-                if (abc.z > 0.1) continue;
 
-                if (sqLength < minLengthSq || sqLength > maxLengthSq)
+                if (sqLength < minBuffer || sqLength > maxBuffer)
                 {
-                    continue;
+					continue;
                 }
-                
-                double length = sqrt(sqLength);
-                double size = fabs(1 / _wavelength - length) / (_rlpSize);
-                
-                if (size < 0) size = 0;
-                if (size > 1) size = 1;
-                _weights.push_back(size);
 
-                _millers.push_back(abc);
-            }
+				Reflection refl;
+				refl.miller = abc;
+				refl.h = a;
+				refl.k = b;
+				refl.l = c;
+				refl.weight = 0;
+				refl.onImage = false;
+				refl.watched = false;
+				_reflections.push_back(refl);
+			}
         }
     }
     
     quickCheckMillers();
     
-    std::cout << "Found " << _millers.size() << " reflections." << std::endl;
+    std::cout << "Found " << _reflections.size() << " reflections." << std::endl;
 }
 
 mat3x3 Crystal::getNudge(double diffX, double diffY, double diffZ)
@@ -288,12 +271,9 @@ mat3x3 Crystal::getScaledBasisVectors()
     return inverse;
 }
 
-bool Crystal::isBeingWatched(int num)
+bool Crystal::isBeingWatched(int i)
 {
-    std::vector<int>::iterator it;
-    it = std::find(_watched.begin(), _watched.end(), num);
-        
-    return (it != _watched.end());
+	return _reflections[i].watched;
 }
 
 double Crystal::ewaldSphereCloseness()
@@ -301,16 +281,28 @@ double Crystal::ewaldSphereCloseness()
     quickCheckMillers();
     
     double sizeSum = 0;
-    
-    for (unsigned int i = 0; i < _watchedSizes.size(); i++)
-    {
-        sizeSum += _watchedSizes[i];
-    }
+	int count = 0;
 
-	sizeSum /= (double)_watchedSizes.size();
+	for (unsigned int i = 0; i < _reflections.size(); i++)
+	{
+		if (!_reflections[i].watched)
+		{
+			continue;
+		}
+
+		sizeSum += _reflections[i].weight;
+		count++;
+	}
+
+	if (count == 0)
+	{
+		return 0;
+	}
+
+	sizeSum /= (double)count;
 
     std::cout << "Ewald sphere closeness check " << sizeSum <<
-	" across " << _watchedSizes.size() << " reflections." << std::endl;
+	" across " << count << " reflections." << std::endl;
 
     _tinker->drawPredictions();
 	QCoreApplication::processEvents();
@@ -318,11 +310,15 @@ double Crystal::ewaldSphereCloseness()
 	return sizeSum;
 }
 
-void Crystal::clearUp()
+void Crystal::clearUpRefinement()
 {
     mat3x3 three = getNudge(_horiz, _vert, 0);
     _rotation = mat3x3_mult_mat3x3(three, _rotation);
     _horiz = 0;
     _vert = 0;
-    _watched.clear();
+
+	for (unsigned int i = 0; i < _reflections.size(); i++)
+	{
+		_reflections[i].watched = false;
+	}
 }

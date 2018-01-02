@@ -22,7 +22,6 @@ class PredictionView : public QGraphicsView
     
 public:
     PredictionView(QWidget *parent = 0);
-    bool isBeingWatched(int i);
     
     void setCrystal(Crystal *crystal)
     {
@@ -71,7 +70,6 @@ protected:
     double _radPerKeyPress;
     
 	int _singleWatch;
-    std::vector<int> _watchedSpots;
     
     vec3 _fixAxisPoints[2];
 };

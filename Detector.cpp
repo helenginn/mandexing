@@ -18,21 +18,19 @@ Detector::Detector()
     _wavelength = STARTING_WAVELENGTH;
 }
 
-void Detector::calculatePositions(Crystal &xtal)
+void Detector::calculatePositions()
 {
-    _positions.clear();
-    _positions.reserve(xtal.millerCount());
     vec3 samplePos = make_vec3(0, 0, - 1 / _wavelength);
     
-    for (int i = 0; i < xtal.millerCount(); i++)
+    for (int i = 0; i < _xtal->millerCount(); i++)
     {
-        vec3 miller = xtal.miller(i);
+        vec3 miller = _xtal->miller(i);
         
         vec3 diff = vec3_subtract_vec3(miller, samplePos);
         double mult = - _beamCentre.z / samplePos.z;
         vec3_mult(&diff, mult);
         
-        _positions.push_back(diff);
+		_xtal->setPositionForMiller(i, diff);
     }
 }
 
@@ -41,9 +39,13 @@ int Detector::positionNearCoord(int x, int y)
     x -= _beamCentre.x;
     y -= _beamCentre.y;
 
-    for (int i = 0; i < positionCount(); i++)
+    for (int i = 0; i < _xtal->millerCount(); i++)
     {
-        vec3 pos = position(i);
+		bool onImage = _xtal->shouldDisplayMiller(i);
+
+		if (!onImage) continue;
+
+        vec3 pos = _xtal->position(i);
         
         if (x >= pos.x - CLOSENESS && x <= pos.x + CLOSENESS &&
             y >= pos.y - CLOSENESS && y <= pos.y + CLOSENESS)

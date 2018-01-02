@@ -14,6 +14,18 @@
 
 #define STARTING_WAVELENGTH 0.0251
 
+typedef struct
+{
+	vec3 miller; // the transformed coordinates in reciprocal space
+	vec3 position; // updated by detector when needed
+	int h;
+	int k;
+	int l; // before transformation on a integer grid
+	double weight; // proportional to closeness to Ewald sphere
+	bool onImage; // whether it is to be displayed on overlay
+	bool watched;
+} Reflection;
+
 class Tinker;
 
 class Crystal
@@ -27,7 +39,7 @@ public:
     void applyRotation(double diffX, double diffY, double diffZ);
     mat3x3 getScaledBasisVectors();
     mat3x3 getNudge(double diffX, double diffY, double diffZ);
-    void clearUp();
+    void clearUpRefinement();
     bool isBeingWatched(int i);
     void quickCheckMillers();
 
@@ -66,18 +78,38 @@ public:
     
     int millerCount()
     {
-        return _millers.size();
+        return _reflections.size();
     }
     
     vec3 miller(int i)
     {
-        return _millers[i];
+        return _reflections[i].miller;
     }
-    
+
+	void setPositionForMiller(int i, vec3 pos)
+	{
+		_reflections[i].position = pos;
+	}
+
+	vec3 position(int i)
+	{
+		return _reflections[i].position;
+	}
+
+	bool toggleWatched(int i)
+	{
+		_reflections[i].watched = ((_reflections[i].watched == 0) ? 1 : 0);
+	}
+
     double weightForMiller(int i)
     {
-        return _weights[i];
+        return _reflections[i].weight;
     }
+
+	bool shouldDisplayMiller(int i)
+	{
+		return _reflections[i].onImage;
+	}
     
     void setFixedAxis(vec3 axis)
     {
@@ -99,22 +131,6 @@ public:
         _rlpSize = rlpSize;
     }
     
-    void setWatchNumbers(std::vector<int> watched)
-    {
-        _watched.clear();
-        for (unsigned int i = 0; i < watched.size(); i++)
-        {
-            if (_picked.size() > i)
-            {
-                std::cout << _picked[watched[i]] << " for " << watched[i] << std::endl;
-                _watched.push_back(_picked[watched[i]]);
-            }
-            else
-            {
-                std::cout << "Lost a picked reflection!" << std::endl;
-            }
-        }
-    }
     
     void setTinker(Tinker *tinker)
     {
@@ -144,15 +160,9 @@ private:
     std::vector<double> _cellDims;
     mat3x3 _rotation;
     mat3x3 _unitCell;
-   
-    std::vector<vec3> _indices; 
-    std::vector<vec3> _millers;
-    std::vector<double> _weights;
-    std::vector<double> _watchedSizes;
-    
-    std::vector<int> _watched;
-    std::vector<int> _picked;
-    
+
+	std::vector<Reflection> _reflections;
+
     double _resolution;
     double _rlpSize;
     double _wavelength;

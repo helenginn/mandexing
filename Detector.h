@@ -20,18 +20,8 @@ class Detector
 public:
     Detector();
     
-    void calculatePositions(Crystal &xtal);
+    void calculatePositions();
     int positionNearCoord(int x, int y);
-    
-    int positionCount()
-    {
-        return _positions.size();
-    }
-    
-    vec3 position(int i)
-    {
-        return _positions[i];
-    }
     
     vec3 getBeamCentre()
     {
@@ -61,7 +51,13 @@ public:
         std::cout << "New beam centre " << _beamCentre.x << " "
          << _beamCentre.y << std::endl;
     }
+
+	void setCrystal(Crystal *pointer)
+	{
+		_xtal = pointer;
+	}
 private:
+	Crystal *_xtal;
     vec3 _beamCentre; // beam X, beam Y, det dist. all pix
     double _wavelength;
     std::vector<vec3> _positions;

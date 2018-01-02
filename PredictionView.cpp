@@ -68,14 +68,6 @@ void PredictionView::keyPressEvent(QKeyEvent *event)
     _tinker->drawPredictions();
 }
 
-bool PredictionView::isBeingWatched(int num)
-{
-    std::vector<int>::iterator it;
-    it = std::find(_watchedSpots.begin(), _watchedSpots.end(), num);
-        
-    return (it != _watchedSpots.end());
-}
-
 void PredictionView::mousePressEvent(QMouseEvent *e)
 {
     if (_fixAxisStage >= 1)
@@ -106,23 +98,9 @@ void PredictionView::mousePressEvent(QMouseEvent *e)
             return;
         }
 
-        std::vector<int>::iterator it;
-        it = std::find(_watchedSpots.begin(), _watchedSpots.end(), num);
+		_crystal->toggleWatched(num);
 
-		if (_refineStage >= 1)
-		{
-			if (it != _watchedSpots.end())
-			{
-				_watchedSpots.erase(it);
-				std::cout << "Deselecting " << num << std::endl;
-			}
-			else
-			{
-				_watchedSpots.push_back(num);
-				std::cout << "Selecting " << num << std::endl;
-			}
-		}
-		else if (_identifyHklStage >= 1)
+		if (_identifyHklStage >= 1)
 		{
 			_singleWatch = num;
 
@@ -249,21 +227,20 @@ void PredictionView::setRefineStage(int stage)
     
     if (stage > 0)
     {
-        _watchedSpots.clear();
-        setCursor(Qt::CrossCursor);    
+		_crystal->clearUpRefinement();
+        setCursor(Qt::CrossCursor);
     }
     else
     {
         setCursor(Qt::ArrowCursor);
         
         /* Cancel */
-        if (stage < 0 || !_watchedSpots.size())
+        if (stage < 0)
         {
             _refineStage = 0;
             return;
         }
         
-        _crystal->setWatchNumbers(_watchedSpots);
         _tinker->startRefinement();
     }
 }
