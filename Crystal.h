@@ -83,6 +83,7 @@ public:
     
     vec3 miller(int i)
     {
+        //Transformed into reciprocal space. Already fractional.
         return _reflections[i].miller;
     }
 
@@ -100,6 +101,14 @@ public:
 	{
 		_reflections[i].watched = ((_reflections[i].watched == 0) ? 1 : 0);
 	}
+    
+    void getMillerHKL(int i, int *h, int *k, int *l)
+    {
+        *h = _reflections[i].h;
+        *k = _reflections[i].k;
+        *l = _reflections[i].l;
+    }
+    
 
     double weightForMiller(int i)
     {

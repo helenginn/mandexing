@@ -34,36 +34,35 @@ static const qt_meta_stringdata_Tinker_t qt_meta_stringdata_Tinker = {
 QT_MOC_LITERAL(0, 0, 6), // "Tinker"
 QT_MOC_LITERAL(1, 7, 18), // "setUnitCellClicked"
 QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 22), // "setAxisOnScreenClicked"
-QT_MOC_LITERAL(4, 50, 20), // "setBeamCentreClicked"
-QT_MOC_LITERAL(5, 71, 17), // "setDetDistClicked"
-QT_MOC_LITERAL(6, 89, 20), // "setWavelengthClicked"
-QT_MOC_LITERAL(7, 110, 17), // "setRlpSizeClicked"
-QT_MOC_LITERAL(8, 128, 20), // "setDegreeStepClicked"
-QT_MOC_LITERAL(9, 149, 11), // "identifyHkl"
-QT_MOC_LITERAL(10, 161, 9), // "openImage"
-QT_MOC_LITERAL(11, 171, 10), // "saveMatrix"
-QT_MOC_LITERAL(12, 182, 10), // "loadMatrix"
-QT_MOC_LITERAL(13, 193, 9), // "beamXPlus"
-QT_MOC_LITERAL(14, 203, 9), // "beamYPlus"
-QT_MOC_LITERAL(15, 213, 10), // "beamXMinus"
-QT_MOC_LITERAL(16, 224, 10), // "beamYMinus"
-QT_MOC_LITERAL(17, 235, 14), // "fixAxisClicked"
-QT_MOC_LITERAL(18, 250, 13), // "refineClicked"
-QT_MOC_LITERAL(19, 264, 13), // "changeLattice"
-QT_MOC_LITERAL(20, 278, 18), // "BravaisLatticeType"
-QT_MOC_LITERAL(21, 297, 4) // "type"
+QT_MOC_LITERAL(3, 27, 17), // "setRlpSizeClicked"
+QT_MOC_LITERAL(4, 45, 11), // "identifyHkl"
+QT_MOC_LITERAL(5, 57, 13), // "changeLattice"
+QT_MOC_LITERAL(6, 71, 18), // "BravaisLatticeType"
+QT_MOC_LITERAL(7, 90, 4), // "type"
+QT_MOC_LITERAL(8, 95, 17), // "setDetDistClicked"
+QT_MOC_LITERAL(9, 113, 20), // "setWavelengthClicked"
+QT_MOC_LITERAL(10, 134, 22), // "setAxisOnScreenClicked"
+QT_MOC_LITERAL(11, 157, 14), // "fixAxisClicked"
+QT_MOC_LITERAL(12, 172, 20), // "setDegreeStepClicked"
+QT_MOC_LITERAL(13, 193, 20), // "setBeamCentreClicked"
+QT_MOC_LITERAL(14, 214, 9), // "beamXPlus"
+QT_MOC_LITERAL(15, 224, 9), // "beamYPlus"
+QT_MOC_LITERAL(16, 234, 10), // "beamXMinus"
+QT_MOC_LITERAL(17, 245, 10), // "beamYMinus"
+QT_MOC_LITERAL(18, 256, 9), // "openImage"
+QT_MOC_LITERAL(19, 266, 10), // "saveMatrix"
+QT_MOC_LITERAL(20, 277, 10), // "loadMatrix"
+QT_MOC_LITERAL(21, 288, 13) // "refineClicked"
 
     },
-    "Tinker\0setUnitCellClicked\0\0"
-    "setAxisOnScreenClicked\0setBeamCentreClicked\0"
-    "setDetDistClicked\0setWavelengthClicked\0"
-    "setRlpSizeClicked\0setDegreeStepClicked\0"
-    "identifyHkl\0openImage\0saveMatrix\0"
-    "loadMatrix\0beamXPlus\0beamYPlus\0"
-    "beamXMinus\0beamYMinus\0fixAxisClicked\0"
-    "refineClicked\0changeLattice\0"
-    "BravaisLatticeType\0type"
+    "Tinker\0setUnitCellClicked\0\0setRlpSizeClicked\0"
+    "identifyHkl\0changeLattice\0BravaisLatticeType\0"
+    "type\0setDetDistClicked\0setWavelengthClicked\0"
+    "setAxisOnScreenClicked\0fixAxisClicked\0"
+    "setDegreeStepClicked\0setBeamCentreClicked\0"
+    "beamXPlus\0beamYPlus\0beamXMinus\0"
+    "beamYMinus\0openImage\0saveMatrix\0"
+    "loadMatrix\0refineClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -84,9 +83,7 @@ static const uint qt_meta_data_Tinker[] = {
        1,    0,  104,    2, 0x08 /* Private */,
        3,    0,  105,    2, 0x08 /* Private */,
        4,    0,  106,    2, 0x08 /* Private */,
-       5,    0,  107,    2, 0x08 /* Private */,
-       6,    0,  108,    2, 0x08 /* Private */,
-       7,    0,  109,    2, 0x08 /* Private */,
+       5,    1,  107,    2, 0x08 /* Private */,
        8,    0,  110,    2, 0x08 /* Private */,
        9,    0,  111,    2, 0x08 /* Private */,
       10,    0,  112,    2, 0x08 /* Private */,
@@ -98,12 +95,15 @@ static const uint qt_meta_data_Tinker[] = {
       16,    0,  118,    2, 0x08 /* Private */,
       17,    0,  119,    2, 0x08 /* Private */,
       18,    0,  120,    2, 0x08 /* Private */,
-      19,    1,  121,    2, 0x08 /* Private */,
+      19,    0,  121,    2, 0x08 /* Private */,
+      20,    0,  122,    2, 0x08 /* Private */,
+      21,    0,  123,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -118,7 +118,6 @@ static const uint qt_meta_data_Tinker[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 20,   21,
 
        0        // eod
 };
@@ -130,23 +129,23 @@ void Tinker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->setUnitCellClicked(); break;
-        case 1: _t->setAxisOnScreenClicked(); break;
-        case 2: _t->setBeamCentreClicked(); break;
-        case 3: _t->setDetDistClicked(); break;
-        case 4: _t->setWavelengthClicked(); break;
-        case 5: _t->setRlpSizeClicked(); break;
-        case 6: _t->setDegreeStepClicked(); break;
-        case 7: _t->identifyHkl(); break;
-        case 8: _t->openImage(); break;
-        case 9: _t->saveMatrix(); break;
-        case 10: _t->loadMatrix(); break;
-        case 11: _t->beamXPlus(); break;
-        case 12: _t->beamYPlus(); break;
-        case 13: _t->beamXMinus(); break;
-        case 14: _t->beamYMinus(); break;
-        case 15: _t->fixAxisClicked(); break;
-        case 16: _t->refineClicked(); break;
-        case 17: _t->changeLattice((*reinterpret_cast< BravaisLatticeType(*)>(_a[1]))); break;
+        case 1: _t->setRlpSizeClicked(); break;
+        case 2: _t->identifyHkl(); break;
+        case 3: _t->changeLattice((*reinterpret_cast< BravaisLatticeType(*)>(_a[1]))); break;
+        case 4: _t->setDetDistClicked(); break;
+        case 5: _t->setWavelengthClicked(); break;
+        case 6: _t->setAxisOnScreenClicked(); break;
+        case 7: _t->fixAxisClicked(); break;
+        case 8: _t->setDegreeStepClicked(); break;
+        case 9: _t->setBeamCentreClicked(); break;
+        case 10: _t->beamXPlus(); break;
+        case 11: _t->beamYPlus(); break;
+        case 12: _t->beamXMinus(); break;
+        case 13: _t->beamYMinus(); break;
+        case 14: _t->openImage(); break;
+        case 15: _t->saveMatrix(); break;
+        case 16: _t->loadMatrix(); break;
+        case 17: _t->refineClicked(); break;
         default: ;
         }
     }

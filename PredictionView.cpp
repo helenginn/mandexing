@@ -13,6 +13,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "FileReader.h"
+
 #include <QtWidgets/qmessagebox.h>
 #include <QtWidgets/qwidget.h>
 #include <QtWidgets/qapplication.h>
@@ -118,12 +120,23 @@ void PredictionView::mousePressEvent(QMouseEvent *e)
 		if (_identifyHklStage >= 1)
 		{
             //Create message box with miller.
-            //QMessageBox *msgBox = new QMessageBox(this);
+            //QMessageBox *mssgBox = new QMessageBox(this);
+            int h = 0;
+            int k = 0;
+            int l = 0;
+            
+            _crystal->getMillerHKL(num, &h, &k, &l);
+            
+            std::string hklMiller = i_to_str(h) + " " + i_to_str(k) + " " + i_to_str(l);
+            
+            QString qMiller = QString(hklMiller.c_str());
+            
+            
             QMessageBox msgBox;
             msgBox.setWindowTitle("Miller readout.");
             msgBox.setText("Congratulations! You have selected a reflection. Possibly.");
-            msgBox.setInformativeText("Miller index.");
-//QString::(_reflections[i].miller)). Create a pointer to _reflections corresponding to coordinates.
+            msgBox.setInformativeText("Miller index: " + qMiller);
+
             msgBox.addButton(QMessageBox::Yes);
             msgBox.setStandardButtons(QMessageBox::Cancel);
             msgBox.setDefaultButton(QMessageBox::Cancel);

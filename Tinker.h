@@ -74,29 +74,44 @@ public:
 protected:
     virtual void resizeEvent(QResizeEvent *event);
 private slots:
+    
+    /* Crystal params */
+    
     void setUnitCellClicked();
-	void setAxisOnScreenClicked();
-	void setBeamCentreClicked();
+    void setRlpSizeClicked();
+    void identifyHkl();
+    void changeLattice(BravaisLatticeType type);
+    
+    
+    /* Expt params*/
+	
 	void setDetDistClicked();
 	void setWavelengthClicked();
-	void setRlpSizeClicked();
-	void setDegreeStepClicked();
-    void identifyHkl();
-	
-	/* Menu slots */
-	
-	void openImage();
-	void saveMatrix();
-	void loadMatrix();
+    
+    void setAxisOnScreenClicked();
+    void fixAxisClicked();
+    
+    void setDegreeStepClicked();
+
 
 	/* Beam centre adjustments */
+    void setBeamCentreClicked();
 	void beamXPlus();
 	void beamYPlus();
 	void beamXMinus();
 	void beamYMinus();
-	void fixAxisClicked();
+    
+    
+    /* Menu slots */
+    
+    void openImage();
+    void saveMatrix();
+    void loadMatrix();
+    
+    /* Process */
+	
 	void refineClicked();
-	void changeLattice(BravaisLatticeType type);
+	
 
 private:
 	void changeBeamCentre(double deltaX, double deltaY);
