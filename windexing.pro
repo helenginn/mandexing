@@ -7,6 +7,7 @@ TARGET = Windexing.app
 INCLUDEPATH += /usr/local/opt/qt/include
 QMAKE_LFLAGS = -framework QtWidgets -framework QtGui -framework QtCore
 QMAKE_CXXFLAGS += -std=c++11
+QMAKE_MAC_SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings

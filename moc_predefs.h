@@ -15,7 +15,6 @@
 #define __CHAR32_TYPE__ unsigned int
 #define __CHAR_BIT__ 8
 #define __CONSTANT_CFSTRINGS__ 1
-#define __DBL_DECIMAL_DIG__ 17
 #define __DBL_DENORM_MIN__ 4.9406564584124654e-324
 #define __DBL_DIG__ 15
 #define __DBL_EPSILON__ 2.2204460492503131e-16
@@ -29,13 +28,12 @@
 #define __DBL_MIN_10_EXP__ (-307)
 #define __DBL_MIN_EXP__ (-1021)
 #define __DBL_MIN__ 2.2250738585072014e-308
-#define __DECIMAL_DIG__ __LDBL_DECIMAL_DIG__
+#define __DECIMAL_DIG__ 21
 #define __DEPRECATED 1
 #define __DYNAMIC__ 1
 #define __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ 101000
 #define __EXCEPTIONS 1
 #define __FINITE_MATH_ONLY__ 0
-#define __FLT_DECIMAL_DIG__ 9
 #define __FLT_DENORM_MIN__ 1.40129846e-45F
 #define __FLT_DIG__ 6
 #define __FLT_EPSILON__ 1.19209290e-7F
@@ -51,7 +49,6 @@
 #define __FLT_MIN_EXP__ (-125)
 #define __FLT_MIN__ 1.17549435e-38F
 #define __FLT_RADIX__ 2
-#define __FXSR__ 1
 #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
 #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
 #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
@@ -68,8 +65,6 @@
 #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
 #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
 #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
-#define __GLIBCXX_BITSIZE_INT_N_0 128
-#define __GLIBCXX_TYPE_INT_N_0 __int128
 #define __GNUC_GNU_INLINE__ 1
 #define __GNUC_MINOR__ 2
 #define __GNUC_PATCHLEVEL__ 1
@@ -143,7 +138,6 @@
 #define __INT_LEAST8_MAX__ 127
 #define __INT_LEAST8_TYPE__ signed char
 #define __INT_MAX__ 2147483647
-#define __LDBL_DECIMAL_DIG__ 21
 #define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
 #define __LDBL_DIG__ 18
 #define __LDBL_EPSILON__ 1.08420217248550443401e-19L
@@ -164,7 +158,6 @@
 #define __MACH__ 1
 #define __MMX__ 1
 #define __NO_MATH_INLINES 1
-#define __OBJC_BOOL_IS_BOOL 0
 #define __OPTIMIZE__ 1
 #define __ORDER_BIG_ENDIAN__ 4321
 #define __ORDER_LITTLE_ENDIAN__ 1234
@@ -209,9 +202,7 @@
 #define __SSE__ 1
 #define __SSP__ 1
 #define __SSSE3__ 1
-#define __STDCPP_DEFAULT_NEW_ALIGNMENT__ 16UL
 #define __STDC_HOSTED__ 1
-#define __STDC_NO_THREADS__ 1
 #define __STDC_UTF_16__ 1
 #define __STDC_UTF_32__ 1
 #define __STDC__ 1
@@ -307,7 +298,7 @@
 #define __UINT_LEAST8_MAX__ 255
 #define __UINT_LEAST8_TYPE__ unsigned char
 #define __USER_LABEL_PREFIX__ _
-#define __VERSION__ "4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2)"
+#define __VERSION__ "4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)"
 #define __WCHAR_MAX__ 2147483647
 #define __WCHAR_TYPE__ int
 #define __WCHAR_WIDTH__ 32
@@ -315,13 +306,13 @@
 #define __WINT_WIDTH__ 32
 #define __amd64 1
 #define __amd64__ 1
-#define __apple_build_version__ 9000039
+#define __apple_build_version__ 7000181
 #define __block __attribute__((__blocks__(byref)))
 #define __clang__ 1
-#define __clang_major__ 9
+#define __clang_major__ 7
 #define __clang_minor__ 0
-#define __clang_patchlevel__ 0
-#define __clang_version__ "9.0.0 (clang-900.0.39.2)"
+#define __clang_patchlevel__ 2
+#define __clang_version__ "7.0.2 (clang-700.1.81)"
 #define __core2 1
 #define __core2__ 1
 #define __cplusplus 201103L
@@ -331,7 +322,7 @@
 #define __cpp_decltype 200707
 #define __cpp_delegating_constructors 200604
 #define __cpp_exceptions 199711
-#define __cpp_inheriting_constructors 201511
+#define __cpp_inheriting_constructors 200802
 #define __cpp_initializer_lists 200806
 #define __cpp_lambdas 200907
 #define __cpp_nsdmi 200809

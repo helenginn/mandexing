@@ -13,6 +13,15 @@
 #include <vector>
 #include <algorithm>
 
+#include <QtWidgets/qmessagebox.h>
+#include <QtWidgets/qwidget.h>
+#include <QtWidgets/qapplication.h>
+#include <QtWidgets/qpushbutton.h>
+#include <QtWidgets/qlabel.h>
+#include <QtGui/qpixmap.h>
+#include <QtWidgets/qfiledialog.h>
+#include <QtWidgets/qgraphicsview.h>
+
 #define MOUSE_SENSITIVITY 1000
 
 PredictionView::PredictionView(QWidget *parent) : QGraphicsView(parent)
@@ -97,19 +106,34 @@ void PredictionView::mousePressEvent(QMouseEvent *e)
             std::cout << "Missed..." << std::endl;
             return;
         }
-
-		_crystal->toggleWatched(num);
+        
+        if (_refineStage >= 1)
+        {
+            _crystal->toggleWatched(num);
+            _tinker->drawPredictions();
+            return;
+        }
+		
 
 		if (_identifyHklStage >= 1)
 		{
-			_singleWatch = num;
+            //Create message box with miller.
+            //QMessageBox *msgBox = new QMessageBox(this);
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Miller readout.");
+            msgBox.setText("Congratulations! You have selected a reflection. Possibly.");
+            msgBox.setInformativeText("Miller index.");
+//QString::(_reflections[i].miller)). Create a pointer to _reflections corresponding to coordinates.
+            msgBox.addButton(QMessageBox::Yes);
+            msgBox.setStandardButtons(QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Cancel);
+            msgBox.setWindowModality(Qt::NonModal);
 
-			return;
+            //msgBox->open(NULL, NULL);
+            msgBox.exec();
+			//return;
 		}
 
-        _tinker->drawPredictions();
-        
-        return;
     }
     
     if (_fixAxisStage == 0)
@@ -213,11 +237,6 @@ void PredictionView::setIdentifyHklStage(int stage)
 	{
 		setCursor(Qt::ArrowCursor);
 
-		if (stage < 0)
-		{
-			_refineStage = 0;
-			return;
-		}
 	}
 }
 

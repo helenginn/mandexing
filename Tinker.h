@@ -68,7 +68,7 @@ public:
 	void finishFixAxis();
 	void transformToDetectorCoordinates(int *x, int *y);
 	void startRefinement();
-	void identifyHkl();
+
 
     ~Tinker();
 protected:
@@ -81,6 +81,7 @@ private slots:
 	void setWavelengthClicked();
 	void setRlpSizeClicked();
 	void setDegreeStepClicked();
+    void identifyHkl();
 	
 	/* Menu slots */
 	

@@ -121,15 +121,17 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	connect(bLatFace, &QPushButton::clicked,
 			[=]{ changeLattice(BravaisLatticeFace); });
 
-/*
+
     bIdentifyHkl = new QPushButton("Identify hkl", this);
-	bIdentifyHkl->setGeometry(0, 610, BUTTON_WIDTH, 50);
+	bIdentifyHkl->setGeometry(0, 660, BUTTON_WIDTH, 50);
 	connect(bIdentifyHkl, SIGNAL(clicked()), this,
 			SLOT(identifyHkl()));
-*/
+
 
 	_refineStage = 0;
 	_fixAxisStage = 0;
+    _identifyHklStage = 0;
+    
 	fileDialogue = NULL;
 
     imageLabel = new QLabel(this);
@@ -726,7 +728,21 @@ void Tinker::refineClicked()
 
 void Tinker::identifyHkl()
 {
-
+    if (_identifyHklStage == 0)
+    {
+        _identifyHklStage = 1;
+        //Button name.
+        bIdentifyHkl->setText("Choose refl");
+        overlayView->setIdentifyHklStage(_identifyHklStage);
+    }
+    else
+    {
+        bIdentifyHkl->setText("Identify hkl");
+        overlayView->setIdentifyHklStage(0);
+        _identifyHklStage = 0;
+    }
+    
+    std::cout << " HELLO. I am here!" << std::endl;
 }
 
 Tinker::~Tinker()
