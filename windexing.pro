@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = Windexing.app
 INCLUDEPATH += /usr/local/opt/qt/include
-QMAKE_LFLAGS = -framework QtWidgets
+QMAKE_LFLAGS = -framework QtWidgets -framework QtGui -framework QtCore
 QMAKE_CXXFLAGS += -std=c++11
 
 # The following define makes your compiler warn you if you use any
