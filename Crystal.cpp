@@ -157,10 +157,17 @@ void Crystal::populateMillers()
                 vec3 abc = make_vec3(a, b, c);
                 
                 bool sysabs = isSysabs(a, b, c);
-                
+               
                 if (sysabs) continue;
 
                 mat3x3_mult_vec(_unitCell, &abc);
+				double length = vec3_length(abc);
+
+				if (length > 1 / _resolution)
+				{
+					continue;
+				}
+
                 mat3x3_mult_vec(_rotation, &abc);
                 
                 vec3 diff = vec3_subtract_vec3(abc, samplePos);
