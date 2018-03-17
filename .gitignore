@@ -3,4 +3,7 @@ Makefile
 *.o
 *.pro
 moc_*.cpp
+mandexing
+tags
+*.sw?
 
