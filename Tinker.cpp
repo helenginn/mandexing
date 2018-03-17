@@ -489,6 +489,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		else
 		{
 			_crystal.setResolution(trial[0]);
+			_crystal.populateMillers();
 			drawPredictions();
 		}
 	}
