@@ -16,7 +16,7 @@
 #include <QtWidgets/qapplication.h>
 #include <QtWidgets/qpushbutton.h>
 #include <QtWidgets/qlabel.h>
-#include <QtWidgets/qtextedit.h>
+#include <QtWidgets/qlineedit.h>
 #include <QtWidgets/qmainwindow.h>
 
 class Tinker;
@@ -43,7 +43,7 @@ public:
              std::string labelText = "", std::string defaultText = "",
              std::string buttonText = "");
     QPushButton *bDialogue;
-    QTextEdit *tDialogue;
+    QLineEdit *tDialogue;
     QLabel *lDialogue;
 
     ~Dialogue();
@@ -58,6 +58,7 @@ public:
         _type = type;
     }
 
+	void cleanup();
 private slots:
     void returnClicked();
 

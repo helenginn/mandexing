@@ -551,8 +551,11 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 			drawPredictions();
 		}
 	}
+
+	myDialogue->cleanup();
 	myDialogue->hide();
 	delete myDialogue;
+
 	myDialogue = NULL;
 }
 

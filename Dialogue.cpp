@@ -19,33 +19,32 @@ Dialogue::Dialogue(QWidget *parent, std::string windowText,
                    std::string labelText, std::string defaultText,
                    std::string buttonText) : QMainWindow(parent)
 {
-    this->resize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    _tinker = NULL;
-    
-    this->setWindowTitle(windowText.c_str());
+	this->resize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	_tinker = NULL;
 
-    lDialogue = new QLabel(this);
-    lDialogue->setText(labelText.c_str());
-    lDialogue->setGeometry(50, 20, 200, 30);
-    lDialogue->show();
-    
-    tDialogue = new QTextEdit(this);
-    tDialogue->setPlaceholderText(defaultText.c_str());
-    tDialogue->setText(defaultText.c_str());
-    tDialogue->setGeometry(50, 60, 200, 30);
+	this->setWindowTitle(windowText.c_str());
+
+	lDialogue = new QLabel(this);
+	lDialogue->setText(labelText.c_str());
+	lDialogue->setGeometry(50, 20, 200, 30);
+	lDialogue->show();
+
+	tDialogue = new QLineEdit(this);
+	tDialogue->setPlaceholderText(defaultText.c_str());
+	tDialogue->setGeometry(50, 60, 200, 30);
 
 	bDialogue = new QPushButton(buttonText.c_str(), this);
 	bDialogue->setGeometry(75, 100, 150, 30);
 	bDialogue->show();
 
-    connect(bDialogue, SIGNAL(clicked()), this, SLOT(returnClicked()));
+	connect(bDialogue, SIGNAL(clicked()), this, SLOT(returnClicked()));
+	connect(tDialogue, SIGNAL(editingFinished()),
+	        this, SLOT(returnClicked()));
 }
-
-
 
 void Dialogue::returnClicked()
 {
-    QString qText = tDialogue->toPlainText();
+    QString qText = tDialogue->text();
     std::string text = qText.toStdString();
     
     if (_tinker)
@@ -54,8 +53,15 @@ void Dialogue::returnClicked()
     }
 }
 
+void Dialogue::cleanup()
+{
+	tDialogue->disconnect();	
+	tDialogue->deleteLater();
+}
 
 Dialogue::~Dialogue()
 {
+	delete lDialogue;
+	delete bDialogue;
 	
 }
