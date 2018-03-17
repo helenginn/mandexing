@@ -6,4 +6,5 @@ moc_*.cpp
 mandexing
 tags
 *.sw?
-
+mandexing.AppDir
+Mandexing-x86_64.AppImage
