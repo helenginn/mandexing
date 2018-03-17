@@ -771,8 +771,6 @@ void Tinker::identifyHkl()
         overlayView->setIdentifyHklStage(0);
         _identifyHklStage = 0;
     }
-    
-    std::cout << " HELLO. I am here!" << std::endl;
 }
 
 Tinker::~Tinker()
