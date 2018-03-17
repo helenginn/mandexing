@@ -77,6 +77,11 @@ public:
     
     void populateMillers();
     
+    Reflection *refl(int i)
+    {
+        return &_reflections[i];
+    }
+    
     int millerCount()
     {
         return _reflections.size();
@@ -98,7 +103,7 @@ public:
 		return _reflections[i].position;
 	}
 
-	bool toggleWatched(int i)
+	void toggleWatched(int i)
 	{
 		_reflections[i].watched = ((_reflections[i].watched == 0) ? 1 : 0);
 	}

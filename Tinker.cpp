@@ -743,6 +743,7 @@ void Tinker::refineClicked()
 {
 	if (_refineStage == 0)
 	{
+		_detector.prepareLookupTable();
 		_refineStage = 1;
 		bRefine->setText("Choose good spots");
 		overlayView->setRefineStage(_refineStage);
@@ -760,6 +761,7 @@ void Tinker::identifyHkl()
 {
     if (_identifyHklStage == 0)
     {
+		_detector.prepareLookupTable();
         _identifyHklStage = 1;
         //Button name.
         bIdentifyHkl->setText("Choose refl");

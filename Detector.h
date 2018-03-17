@@ -12,6 +12,7 @@
 #include "mat3x3.h"
 #include <vector>
 #include <iostream>
+#include "Node.h"
 
 class Crystal;
 
@@ -19,10 +20,12 @@ class Detector
 {
 public:
     Detector();
+	~Detector();
     
     void calculatePositions();
     int positionNearCoord(int x, int y);
-    
+	void prepareLookupTable();
+
     vec3 getBeamCentre()
     {
         return _beamCentre;
@@ -58,10 +61,12 @@ public:
 	}
 private:
 	Crystal *_xtal;
-    vec3 _beamCentre; // beam X, beam Y, det dist. all pix
-    double _wavelength;
-    std::vector<vec3> _positions;
-    
+	vec3 _beamCentre; // beam X, beam Y, det dist. all pix
+	double _wavelength;
+	std::vector<vec3> _positions;
+	bool nearMiller(int i, int x, int y);
+
+	Node *_lookupTree;
 };
 
 
