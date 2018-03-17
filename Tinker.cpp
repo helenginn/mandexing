@@ -20,8 +20,8 @@
 #define DEFAULT_WIDTH 1000
 #define DEFAULT_HEIGHT 800
 #define BUTTON_WIDTH 160
-#define BEAM_CENTRE_GROUP_YOFFSET 160
-#define BRAVAIS_LATTICE_YOFFSET 560
+#define BEAM_CENTRE_GROUP_YOFFSET 180
+#define BRAVAIS_LATTICE_YOFFSET 580
 
 Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 {
@@ -38,16 +38,16 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	
 	myDialogue = NULL;
 	bUnitCell = new QPushButton("Set unit cell", this);
-	bUnitCell->setGeometry(0, 5, BUTTON_WIDTH, 50);
+	bUnitCell->setGeometry(0, 25, BUTTON_WIDTH, 50);
     connect(bUnitCell, SIGNAL(clicked()), this, SLOT(setUnitCellClicked()));
 
 	bAxisOnScreen = new QPushButton("Bring axis on screen", this);
-	bAxisOnScreen->setGeometry(0, 55, BUTTON_WIDTH, 50);
+	bAxisOnScreen->setGeometry(0, 75, BUTTON_WIDTH, 50);
     connect(bAxisOnScreen, SIGNAL(clicked()), this,
             SLOT(setAxisOnScreenClicked()));
 
 	bFixAxis = new QPushButton("Fix axis", this);
-	bFixAxis->setGeometry(0, 105, BUTTON_WIDTH, 50);
+	bFixAxis->setGeometry(0, 125, BUTTON_WIDTH, 50);
     connect(bFixAxis, SIGNAL(clicked()), this,
             SLOT(fixAxisClicked()));
 
@@ -77,27 +77,27 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
             SLOT(beamYPlus()));
 
 	bDetDist = new QPushButton("Set detector distance", this);
-	bDetDist->setGeometry(0, 310, BUTTON_WIDTH, 50);
+	bDetDist->setGeometry(0, 330, BUTTON_WIDTH, 50);
     connect(bDetDist, SIGNAL(clicked()), this,
             SLOT(setDetDistClicked()));
 
 	bWavelength = new QPushButton("Set wavelength", this);
-	bWavelength->setGeometry(0, 360, BUTTON_WIDTH, 50);
+	bWavelength->setGeometry(0, 380, BUTTON_WIDTH, 50);
     connect(bWavelength, SIGNAL(clicked()), this,
             SLOT(setWavelengthClicked()));
 
 	bRlpSize = new QPushButton("Set rlp size", this);
-	bRlpSize->setGeometry(0, 410, BUTTON_WIDTH, 50);
+	bRlpSize->setGeometry(0, 430, BUTTON_WIDTH, 50);
     connect(bRlpSize, SIGNAL(clicked()), this,
             SLOT(setRlpSizeClicked()));
 
 	bDegrees = new QPushButton("Set degree step", this);
-	bDegrees->setGeometry(0, 460, BUTTON_WIDTH, 50);
+	bDegrees->setGeometry(0, 480, BUTTON_WIDTH, 50);
     connect(bDegrees, SIGNAL(clicked()), this,
             SLOT(setDegreeStepClicked()));
 
 	bRefine = new QPushButton("Refine", this);
-	bRefine->setGeometry(0, 510, BUTTON_WIDTH, 50);
+	bRefine->setGeometry(0, 530, BUTTON_WIDTH, 50);
     connect(bRefine, SIGNAL(clicked()), this,
             SLOT(refineClicked()));
 
