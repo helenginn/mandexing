@@ -11,7 +11,6 @@
 #include "defaults.h"
 #include <iostream>
 
-#define CLOSENESS 30
 
 Detector::Detector()
 {
