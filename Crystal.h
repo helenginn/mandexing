@@ -43,6 +43,8 @@ public:
     void clearUpRefinement();
     bool isBeingWatched(int i);
     void quickCheckMillers();
+    void populateMillers();
+    
 
     static double ewaldSphereClosenessScore(void *crystal)
     {
@@ -74,8 +76,6 @@ public:
     {
         _resolution = resolution;
     }
-    
-    void populateMillers();
     
     Reflection *refl(int i)
     {
