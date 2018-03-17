@@ -27,6 +27,7 @@ typedef enum
     DialogueUnitCell,
     DialogueBringAxis,
     DialogueBeamCentre,
+    DialogueResolution,
     DialogueDistance,
     DialogueWavelength,
     DialogueRlpSize,

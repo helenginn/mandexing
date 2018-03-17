@@ -45,6 +45,7 @@ public:
     QPushButton *bRefine;
 	QPushButton *bIdentifyHkl;
     QPushButton *bDegrees;
+    QPushButton *bResolution;
     QPushButton *bLatPrimitive, *bLatBody, *bLatFace, *bLatBase;
     QSignalMapper *latMapper;
     
@@ -79,6 +80,7 @@ private slots:
     
     void setUnitCellClicked();
     void setRlpSizeClicked();
+    void setResolutionClicked();
     void identifyHkl();
     void changeLattice(BravaisLatticeType type);
     

@@ -122,8 +122,13 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 			[=]{ changeLattice(BravaisLatticeFace); });
 
 
+    bResolution = new QPushButton("Set resolution", this);
+	bResolution->setGeometry(0, 680, BUTTON_WIDTH, 50);
+	connect(bResolution, SIGNAL(clicked()), this,
+			SLOT(setResolutionClicked()));
+
     bIdentifyHkl = new QPushButton("Identify hkl", this);
-	bIdentifyHkl->setGeometry(0, 660, BUTTON_WIDTH, 50);
+	bIdentifyHkl->setGeometry(0, 730, BUTTON_WIDTH, 50);
 	connect(bIdentifyHkl, SIGNAL(clicked()), this,
 			SLOT(identifyHkl()));
 
@@ -256,9 +261,20 @@ void Tinker::beamYMinus()
 	changeBeamCentre(0, 1);
 }
 
+void Tinker::setResolutionClicked()
+{
+	myDialogue = new Dialogue(this, "Set resolution (Å)",
+    								"Enter new resolution:",
+    								"1.8",
+    								"Set resolution");
+	myDialogue->setTag(DialogueResolution);
+    myDialogue->setTinker(this);
+	myDialogue->show();
+}
+
 void Tinker::setDetDistClicked()
 {
-	myDialogue = new Dialogue(this, "Set detector distance (pixels)",
+	myDialogue = new Dialogue(this, "Set distance (pixels)",
     								"Enter new detector distance:",
     								"174286",
     								"Set distance");
@@ -459,6 +475,20 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		else
 		{
 			_detector.setBeamCentre(trial[0], trial[1]);
+			drawPredictions();
+		}
+	}
+	else if (type == DialogueResolution)
+	{
+		std::cout << "Resolution has " << trial.size() << " parameters." << std::endl;
+		
+		if (trial.size() != 1)
+		{
+			return;
+		}
+		else
+		{
+			_crystal.setResolution(trial[0]);
 			drawPredictions();
 		}
 	}
