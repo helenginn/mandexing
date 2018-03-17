@@ -8,13 +8,14 @@
 
 #include "Crystal.h"
 #include "Detector.h"
+#include "defaults.h"
 #include <iostream>
 
 #define CLOSENESS 30
 
 Detector::Detector()
 {
-    _beamCentre = make_vec3(-1, -1, 174286);
+    _beamCentre = make_vec3(-1, -1, STARTING_DISTANCE);
     _wavelength = STARTING_WAVELENGTH;
 }
 

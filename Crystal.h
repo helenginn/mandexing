@@ -12,7 +12,8 @@
 #include <iostream>
 #include "shared_ptrs.h"
 
-#define STARTING_WAVELENGTH 0.0251
+#define STARTING_WAVELENGTH 1.000
+#define STARTING_DISTANCE 500.000
 
 typedef struct
 {

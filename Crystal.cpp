@@ -7,6 +7,7 @@
 //
 
 #include "Crystal.h"
+#include "defaults.h"
 #include "mat3x3.h"
 #include <iostream>
 #include "Tinker.h"
@@ -69,7 +70,7 @@ Crystal::Crystal()
     for (int i = 0; i < 3; i++) {_cellDims.push_back(1);};
     for (int i = 0; i < 3; i++) {_cellDims.push_back(90);};
 
-    _resolution = 2.4;
+    _resolution = STARTING_RESOLUTION;
     _rlpSize = 0.0015;
     _wavelength = STARTING_WAVELENGTH;
     _latticeType = BravaisLatticePrimitive;
