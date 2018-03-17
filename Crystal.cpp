@@ -146,6 +146,7 @@ void Crystal::populateMillers()
     double maxBuffer = maxLength * maxLength; 
 
     std::cout << minLengthSq << " " << maxLengthSq << std::endl;
+    std::cout << "To maximum resolution: " << _resolution << std::endl;
     
     for (int a = -aMax; a <= aMax; a++)
     {
