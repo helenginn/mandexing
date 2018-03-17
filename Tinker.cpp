@@ -148,9 +148,9 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	QBrush brush(Qt::transparent);
 	
 	_crystal.setTinker(this);
-	
-	overlay = new QGraphicsScene(overlayView);
+
 	overlayView = new PredictionView(imageLabel);
+	overlay = new QGraphicsScene(overlayView);
 	overlayView->setCrystal(&_crystal);
 	overlayView->setDetector(&_detector);
 	overlayView->setTinker(this);
