@@ -134,7 +134,7 @@ void PredictionView::mousePressEvent(QMouseEvent *e)
             
             QMessageBox msgBox;
             msgBox.setWindowTitle("Miller readout.");
-            msgBox.setText("Congratulations! You have selected a reflection. Possibly.");
+            msgBox.setText("I think you'll find that the hkl value is...");
             msgBox.setInformativeText("Miller index: " + qMiller);
 
             msgBox.addButton(QMessageBox::Yes);
