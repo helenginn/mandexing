@@ -166,7 +166,7 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	_detector.setCrystal(&_crystal);
 }
 
-void Tinker::resizeEvent(QResizeEvent *event)
+void Tinker::resizeEvent(QResizeEvent *)
 {
     int w = width();
     int h = height();
