@@ -65,6 +65,7 @@ private:
 	double _wavelength;
 	std::vector<vec3> _positions;
 	bool nearMiller(int i, int x, int y);
+	double distToMiller(int i, int x, int y);
 
 	Node *_lookupTree;
 };

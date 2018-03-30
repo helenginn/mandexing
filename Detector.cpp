@@ -10,7 +10,7 @@
 #include "Detector.h"
 #include "defaults.h"
 #include <iostream>
-
+#include "float.h"
 
 Detector::Detector()
 {
@@ -33,6 +33,15 @@ void Detector::calculatePositions()
         
 		_xtal->setPositionForMiller(i, diff);
     }
+}
+
+double Detector::distToMiller(int i, int x, int y)
+{
+	vec3 pos = _xtal->position(i);
+	vec3 clickPos = make_vec3(x, y, pos.z);
+	vec3 diff = vec3_subtract_vec3(clickPos, pos);
+	
+	return vec3_length(diff);
 }
 
 bool Detector::nearMiller(int i, int x, int y)
@@ -99,17 +108,26 @@ finished_node_search:
 	
 	std::cout << "Drilled down " << drills << " nodes." << std::endl;
 	
+	int best_n = -1;
+	double distance = FLT_MAX;
+	
 	for (int i = 0; i < node->nRefls; i++)
 	{
 		int n = node->reflPtrs[i];
 
 		if (nearMiller(n, x, y))
 		{
-			return n;
+			double thisDist = distToMiller(n, x, y);
+			
+			if (thisDist < distance)
+			{
+				distance = thisDist;
+				best_n = n;	
+			}
 		}
 	}
 	
-	return -1;
+	return best_n;
 }
 
 void Detector::prepareLookupTable()
