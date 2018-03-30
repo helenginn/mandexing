@@ -81,8 +81,11 @@ int Detector::positionNearCoord(int x, int y)
 	
 	Node *node = _lookupTree;
 	int drills = 0;
+	
+	/* Some non-exit condition and I'm too lazy to fix properly */
+	int max_drills = 50;
 
-	while (true)
+	while (true && drills < max_drills)
 	{
 		for (int i = 0; i < 4; i++)
 		{
