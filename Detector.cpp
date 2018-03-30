@@ -21,14 +21,14 @@ Detector::Detector()
 
 void Detector::calculatePositions()
 {
-    vec3 samplePos = make_vec3(0, 0, - 1 / _wavelength);
-    
-    for (int i = 0; i < _xtal->millerCount(); i++)
-    {
-        vec3 miller = _xtal->miller(i);
-        
-        vec3 diff = vec3_subtract_vec3(miller, samplePos);
-        double mult = - _beamCentre.z / samplePos.z;
+	vec3 samplePos = make_vec3(0, 0, - 1 / _wavelength);
+
+	for (int i = 0; i < _xtal->millerCount(); i++)
+	{
+		vec3 miller = _xtal->miller(i);
+
+		vec3 diff = vec3_subtract_vec3(miller, samplePos);
+		double mult = _beamCentre.z / diff.z;
         vec3_mult(&diff, mult);
         
 		_xtal->setPositionForMiller(i, diff);
