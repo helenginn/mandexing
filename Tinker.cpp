@@ -416,9 +416,13 @@ void Tinker::drawPredictions()
 
 void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 {
-	std::cout << (diagString) << std::endl;
-	
+	std::cout << "String: (" << (diagString) << ")" << std::endl;
 	std::vector<double> trial;
+
+	if (!diagString.length())
+	{
+		goto cleanup_dialogue;
+	}
 	
 	while (true)
 	{
@@ -442,7 +446,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 	
 		if (trial.size() != 6)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -456,7 +460,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() < 3)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -470,7 +474,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 2)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -484,7 +488,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 1)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -499,7 +503,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 1)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -513,7 +517,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 1)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -528,7 +532,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 1)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -543,7 +547,7 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		
 		if (trial.size() != 1)
 		{
-			return;
+			goto cleanup_dialogue;
 		}
 		else
 		{
@@ -553,9 +557,11 @@ void Tinker::receiveDialogue(DialogueType type, std::string diagString)
 		}
 	}
 
+cleanup_dialogue:
 	myDialogue->cleanup();
 	myDialogue->hide();
-	delete myDialogue;
+	myDialogue->disconnect();
+	myDialogue->deleteLater();
 
 	myDialogue = NULL;
 }
