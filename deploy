@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+cp mandexing mandexing.AppDir/usr/bin/
+~/Downloads/linuxdeployqt-continuous-x86_64.AppImage mandexing.AppDir/usr/bin/mandexing -appimage
