@@ -7,6 +7,6 @@ This is also likely to be a good teaching tool.
 
 Installation instructions are lacking.
 
-Binary files will be available at some point, probably.
+Binary files will be available at some point, probably. Check 'Releases'.
 
 Contact me if you need.
