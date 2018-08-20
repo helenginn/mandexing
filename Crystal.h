@@ -92,7 +92,7 @@ public:
         return &_reflections[i];
     }
     
-    int millerCount()
+    size_t millerCount()
     {
         return _reflections.size();
     }

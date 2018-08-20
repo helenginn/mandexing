@@ -380,7 +380,7 @@ void Tinker::drawPredictions()
 	
 	int ellipseSize = 10;
 	
-	for (int i = 0; i < _crystal.millerCount(); i++)
+	for (size_t i = 0; i < _crystal.millerCount(); i++)
 	{
 		bool onImage = _crystal.shouldDisplayMiller(i);
 
@@ -422,7 +422,7 @@ void Tinker::drawPredictions()
 	
 	mat3x3 scaled_basis = _crystal.getScaledBasisVectors();
 	
-	for (int i = 0; i < 3; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		QPen pen = QPen(QColor(255, 0, 0));
 		vec3 basis_vector = mat3x3_axis(scaled_basis, i);
@@ -669,7 +669,7 @@ void Tinker::loadMatrix()
 		msgBox->setWindowModality(Qt::NonModal);
 		msgBox->setText("Sorry no");
 		
-		for (int i = 0; i < lines.size(); i++)
+		for (size_t i = 0; i < lines.size(); i++)
 		{
 			std::vector<std::string> components = split(lines[i], ' ');
 			
