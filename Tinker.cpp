@@ -787,7 +787,10 @@ void Tinker::saveMatrix()
 		file << computer_friendly_desc(beamCentre);
 		
 		file << "wavelength ";
-		file << _detector.getWavelength();
+		file << _detector.getWavelength() << std::endl;
+
+		file << "rlpsize ";
+		file << _crystal.getRlpSize() << std::endl;
 
 		file.close();
 	}
