@@ -195,15 +195,15 @@ mat3x3 mat3x3_transpose(mat3x3 &mat)
 void mat3x3_scale(mat3x3 *inverse, double a, double b, double c)
 {
 	inverse->vals[0] *= a;
-	inverse->vals[1] *= a;
-	inverse->vals[2] *= a;
+	inverse->vals[3] *= a;
+	inverse->vals[6] *= a;
 
-	inverse->vals[3] *= b;
+	inverse->vals[1] *= b;
 	inverse->vals[4] *= b;
-	inverse->vals[5] *= b;
+	inverse->vals[7] *= b;
 
-	inverse->vals[6] *= c;
-	inverse->vals[7] *= c;
+	inverse->vals[2] *= c;
+	inverse->vals[5] *= c;
 	inverse->vals[8] *= c;
 }
 
@@ -470,7 +470,10 @@ mat3x3 mat3x3_map_vec_to_vec(vec3 aVec, vec3 bVec)
 	vec3 cross = vec3_cross_vec3(aVec, bVec);
 	vec3_set_length(&cross, 1);
     
-    if (cross.x != cross.x) cross = {1, 0, 0};
+    if (cross.x != cross.x)
+    {
+        cross = make_vec3(1, 0, 0);
+    }
 
     double angle = vec3_angle_with_vec3(aVec, bVec);
     
