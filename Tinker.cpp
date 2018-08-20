@@ -205,9 +205,9 @@ void Tinker::setUnitCellClicked()
 {
 	delete myDialogue;
     myDialogue = new Dialogue(this, "Choose unit cell (Å, º)",
-    								"Enter a b c alpha beta gamma:",
-    								"79.2 79.2 38.0 90 90 90",
-    								"Set unit cell");
+                              "Enter a b c alpha beta gamma:",
+                              "79.2 79.2 38.0 90 90 90",
+                              "Set unit cell");
 	myDialogue->setTag(DialogueUnitCell);
     myDialogue->setTinker(this);
 	myDialogue->show();
@@ -217,9 +217,9 @@ void Tinker::setAxisOnScreenClicked()
 {
 	delete myDialogue;
     myDialogue = new Dialogue(this, "Bring axis on screen",
-    								"Enter one or two Miller index vectors:",
-    								"1 0 0 0 0 1",
-    								"Set axis");
+                              "Enter one or two Miller index vectors:",
+                              "1 0 0 0 0 1",
+                              "Set axis");
 	myDialogue->setTag(DialogueBringAxis);
     myDialogue->setTinker(this);
 	myDialogue->show();
@@ -229,9 +229,9 @@ void Tinker::setBeamCentreClicked()
 {
 	delete myDialogue;
     myDialogue = new Dialogue(this, "Set beam centre (pixels)",
-    								"Enter new beam centre:",
-    								"2200 2200",
-    								"Set centre");
+                              "Enter new beam centre:",
+                              "2200 2200",
+                              "Set centre");
 	myDialogue->setTag(DialogueBeamCentre);
     myDialogue->setTinker(this);
 	myDialogue->show();
@@ -631,43 +631,99 @@ void Tinker::loadMatrix()
 	QStringList fileNames;
 	if (fileDialogue->exec())
 	{
-    	fileNames = fileDialogue->selectedFiles();
-    }
+		fileNames = fileDialogue->selectedFiles();
+	}
     
     if (fileNames.size() >= 1)
 	{
 		std::string filename = fileNames[0].toStdString();
 		std::string matrix = get_file_contents(filename);
 		
-		std::vector<std::string> components = split(matrix, ' ');
+		std::vector<std::string> lines = split(matrix, '\n');
 		
 		QMessageBox *msgBox = new QMessageBox(this);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->setDefaultButton(QMessageBox::Ok);
 		msgBox->setWindowModality(Qt::NonModal);
 		msgBox->setText("Sorry no");
-			
-		if (components.size() < 10)
-		{
-			msgBox->setInformativeText("Not enough components, expecting 10 space-separated "\
-			"values. Try again.");
-			msgBox->exec();
-		}
-		else if (components[0] != "rotation")
-		{
-			msgBox->setInformativeText("Expecting the first component to be 'rotation'.");		
-			msgBox->exec();
-		}
-
-		mat3x3 rotMat = make_mat3x3();
-
-		for (int i = 1; i < 10; i++)
-		{
-			float value = atof(components[i].c_str());
-			rotMat.vals[i - 1] = value;
-		}
 		
-		_crystal.setRotation(rotMat);
+		for (int i = 0; i < lines.size(); i++)
+		{
+			std::vector<std::string> components = split(lines[i], ' ');
+			
+			if (components.size() == 0)
+			{
+				continue;
+			}
+
+			if (components[0] == "rotation" || components[0] == "unitcell")
+			{
+				if (components.size() < 10)
+				{
+					msgBox->setInformativeText("Not enough components,"\
+					                           "expecting 9 space-separated "\
+					                           "values. Try again.");
+					msgBox->exec();
+				}
+			}
+
+			if (components[0] == "rotation")
+			{
+				mat3x3 rotMat = mat3x3_from_string(components);
+				_crystal.setRotation(rotMat);
+			}
+
+			if (components[0] == "unitcell")
+			{
+				mat3x3 unitCell = mat3x3_from_string(components);
+				_crystal.setUnitCell(unitCell);
+			}
+
+			if (components[0] == "det_centre")
+			{
+				if (components.size() < 4)
+				{
+					msgBox->setInformativeText("Not enough components,"\
+					                           "expecting 3 space-separated "\
+					                           "values. Try again.");
+					msgBox->exec();
+				}
+
+				vec3 centre = vec3_from_string(components);
+				_detector.setBeamCentre(centre.x, centre.y);
+				_detector.setDetectorDistance(centre.z);
+			}
+			
+			if (components[0] == "wavelength")
+			{
+				if (components.size() < 2)
+				{
+					msgBox->setInformativeText("Not enough components,"\
+					                           "expecting 1 "\
+					                           "value. Try again.");
+					msgBox->exec();
+				}
+
+				double wave = atof(components[1].c_str());
+				_detector.setWavelength(wave);
+				_crystal.setWavelength(wave);
+			}
+			
+			if (components[0] == "rlp_size")
+			{
+				if (components.size() < 2)
+				{
+					msgBox->setInformativeText("Not enough components,"\
+					                           "expecting 1 "\
+					                           "value. Try again.");
+					msgBox->exec();
+				}
+
+				double rlp_size = atof(components[1].c_str());
+				_crystal.setRlpSize(rlp_size);
+			}
+		}
+
 		_crystal.populateMillers();
 		drawPredictions();
 		
@@ -696,16 +752,21 @@ void Tinker::saveMatrix()
 		file.open(fileNames[0].toStdString().c_str());
 		
 		mat3x3 rot = _crystal.getRotation();
+		mat3x3 unitCell = _crystal.getUnitCell();
+		vec3 beamCentre = _detector.getBeamCentre();
 		
 		file << "rotation ";
+		file << computer_friendly_desc(rot);
 		
-		for (int i = 0; i < 9; i++)
-		{
-			file << rot.vals[i] << " ";
-		}
+		file << "unitcell ";
+		file << computer_friendly_desc(unitCell);
 		
-		file << std::endl;
+		file << "det_centre ";
+		file << computer_friendly_desc(beamCentre);
 		
+		file << "wavelength ";
+		file << _detector.getWavelength();
+
 		file.close();
 	}
 }
