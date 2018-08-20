@@ -151,6 +151,11 @@ public:
         _wavelength = wavelength;
     }
     
+    double getRlpSize()
+    {
+	return _rlpSize;
+    }
+    
     void setRlpSize(double rlpSize)
     {
         _rlpSize = rlpSize;
