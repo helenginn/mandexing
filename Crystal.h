@@ -172,6 +172,13 @@ public:
         _rotation = rot;
     }
     
+    mat3x3 getUnitCell()
+    {
+    	return _unitCell;
+    }
+    
+    void setUnitCell(mat3x3 unitCell);
+
     void setBravaisLattice(BravaisLatticeType type)
     {
         _latticeType = type;
