@@ -462,6 +462,34 @@ mat3x3 mat3x3_covariance(std::vector<vec3> points)
 	return mat;
 }
 
+std::string computer_friendly_desc(mat3x3 &mat)
+{
+	std::ostringstream str;
+	
+	for (int i = 0; i < 9; i++)
+	{
+		str << mat.vals[i] << " ";
+	}
+	
+	str << std::endl;
+	
+	return str.str();
+}
+
+mat3x3 mat3x3_from_string(std::vector<std::string> &components)
+{
+	mat3x3 mat = make_mat3x3();
+
+	for (int i = 1; i < 10; i++)
+	{
+		float value = atof(components[i].c_str());
+		mat.vals[i - 1] = value;
+	}
+
+	return mat;
+}
+
+
 mat3x3 mat3x3_map_vec_to_vec(vec3 aVec, vec3 bVec)
 {
 	vec3_set_length(&aVec, 1);
