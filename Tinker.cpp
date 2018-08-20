@@ -48,20 +48,24 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	
 	myDialogue = NULL;
 	bUnitCell = new QPushButton("Set unit cell", this);
+	bUnitCell->setToolTip("Enter crystal's unit cell dimensions");
 	bUnitCell->setGeometry(0, 25, BUTTON_WIDTH, 50);
     connect(bUnitCell, SIGNAL(clicked()), this, SLOT(setUnitCellClicked()));
 
 	bAxisOnScreen = new QPushButton("Bring axis on screen", this);
+	bAxisOnScreen->setToolTip("Enter two known axes to appear on detector");
 	bAxisOnScreen->setGeometry(0, 75, BUTTON_WIDTH, 50);
     connect(bAxisOnScreen, SIGNAL(clicked()), this,
             SLOT(setAxisOnScreenClicked()));
 
 	bFixAxis = new QPushButton("Fix axis", this);
+	bFixAxis->setToolTip("Change axis for WASD-key rotation");
 	bFixAxis->setGeometry(0, 125, BUTTON_WIDTH, 50);
     connect(bFixAxis, SIGNAL(clicked()), this,
             SLOT(fixAxisClicked()));
 
 	bBeamCentre = new QPushButton("BC", this);
+	bBeamCentre->setToolTip("Manually alter beam centre");
 	bBeamCentre->setGeometry(55, BEAM_CENTRE_GROUP_YOFFSET + 50, 50, 50);
     connect(bBeamCentre, SIGNAL(clicked()), this,
             SLOT(setBeamCentreClicked()));
@@ -97,47 +101,56 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
             SLOT(setWavelengthClicked()));
 
 	bRlpSize = new QPushButton("Set rlp size", this);
+	bRlpSize->setToolTip("Change size of reciprocal lattice points");
 	bRlpSize->setGeometry(0, 430, BUTTON_WIDTH, 50);
     connect(bRlpSize, SIGNAL(clicked()), this,
             SLOT(setRlpSizeClicked()));
 
 	bDegrees = new QPushButton("Set degree step", this);
+	bDegrees->setToolTip("Change increment of rotations by WASD keys");
 	bDegrees->setGeometry(0, 480, BUTTON_WIDTH, 50);
     connect(bDegrees, SIGNAL(clicked()), this,
             SLOT(setDegreeStepClicked()));
 
 	bRefine = new QPushButton("Refine", this);
+	bRefine->setToolTip("Click once; choose strong reflections; click again");
 	bRefine->setGeometry(0, 530, BUTTON_WIDTH, 50);
     connect(bRefine, SIGNAL(clicked()), this,
             SLOT(refineClicked()));
 
 	bLatPrimitive = new QPushButton("P", this);
+	bLatPrimitive->setToolTip("Choose primitive lattice");
 	bLatPrimitive->setGeometry(30, BRAVAIS_LATTICE_YOFFSET, 50, 50);
 	connect(bLatPrimitive, &QPushButton::clicked,
 			[=]{ changeLattice(BravaisLatticePrimitive); });
 
 	bLatBase = new QPushButton("C", this);
+	bLatBase->setToolTip("Choose base-centred lattice");
 	bLatBase->setGeometry(80, BRAVAIS_LATTICE_YOFFSET, 50, 50);
 	connect(bLatBase, &QPushButton::clicked,
 			[=]{ changeLattice(BravaisLatticeBase); });
 
 	bLatBody = new QPushButton("I", this);
+	bLatBody->setToolTip("Choose body-centred lattice");
 	bLatBody->setGeometry(30, BRAVAIS_LATTICE_YOFFSET + 50, 50, 50);
 	connect(bLatBody, &QPushButton::clicked,
 			[=]{ changeLattice(BravaisLatticeBody); });
 
 	bLatFace = new QPushButton("F", this);
+	bLatFace->setToolTip("Choose face-centred lattice");
 	bLatFace->setGeometry(80, BRAVAIS_LATTICE_YOFFSET + 50, 50, 50);
 	connect(bLatFace, &QPushButton::clicked,
 			[=]{ changeLattice(BravaisLatticeFace); });
 
 
     bResolution = new QPushButton("Set resolution", this);
+	bResolution->setToolTip("Set maximum calculated resolution");
 	bResolution->setGeometry(0, 680, BUTTON_WIDTH, 50);
 	connect(bResolution, SIGNAL(clicked()), this,
 			SLOT(setResolutionClicked()));
 
     bIdentifyHkl = new QPushButton("Identify hkl", this);
+	bResolution->setToolTip("Click once; choose a few reflections; click off");
 	bIdentifyHkl->setGeometry(0, 730, BUTTON_WIDTH, 50);
 	connect(bIdentifyHkl, SIGNAL(clicked()), this,
 			SLOT(identifyHkl()));
