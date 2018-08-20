@@ -192,7 +192,7 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
                          "from the file menu.", this);
     _notice->setGeometry((DEFAULT_WIDTH / 2 + BUTTON_WIDTH - 200), 
                          DEFAULT_HEIGHT / 2 - 20,
-                         200, 40);
+                         220, 40);
     _notice->show();
 }
 
