@@ -1,6 +1,4 @@
-# mandexing
-Mandexing
-=========
+# Mandexing
 written by Helen Ginn
 
 Mandexing allows you to manually index and modify parameters for X-ray beam/crystals and rotate them within the GUI, overlaid on an image file. The philosophy is that Mandexing will allow you to load standard image types (PNG, JPG, etc.) but at the expense of doing no pixel value-based analysis itself. This lends itself well to quick diffraction analysis on unusual file formats as it can work surprisingly well from screenshots alone. It only supports projections of reflections onto a flat detector.
