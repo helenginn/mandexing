@@ -757,7 +757,7 @@ void Tinker::saveMatrix()
 {
 	delete fileDialogue;
 	fileDialogue = new QFileDialog(this, tr("Save as .dat file"),
-									 tr("matrix.dat"));
+	                               tr("matrix.dat"));
 	fileDialogue->setFileMode(QFileDialog::AnyFile);
 	fileDialogue->setAcceptMode(QFileDialog::AcceptSave);
 	fileDialogue->show();
