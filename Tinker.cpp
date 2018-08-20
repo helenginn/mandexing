@@ -402,7 +402,7 @@ void Tinker::drawPredictions()
 		
 		vec3 pos = _crystal.position(i);
 		
-		QPen pen = QPen(QColor(0, 0, 0, (1 - weight) * 255));
+		QPen pen = QPen(QColor(0, 0, 255, (1 - weight) * 255));
 		bool watching = _crystal.isBeingWatched(i);
 		
 		if (_refineStage != 1) watching = false;
@@ -411,7 +411,7 @@ void Tinker::drawPredictions()
 
 		if (watching)
 		{
-			brush = QBrush(QColor(255, 255, 255, 50));
+			brush = QBrush(QColor(0, 0, 255, 50));
 		}
 		
 		pos.x = w2 * pos.x / w + bx;
