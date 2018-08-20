@@ -187,6 +187,13 @@ Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 	overlayView->show();
 
 	_detector.setCrystal(&_crystal);
+    
+    _notice = new QLabel("Load an image (.png, .jpg, etc.)\n"\
+                         "from the file menu.", this);
+    _notice->setGeometry((DEFAULT_WIDTH / 2 + BUTTON_WIDTH - 200), 
+                         DEFAULT_HEIGHT / 2 - 20,
+                         200, 40);
+    _notice->show();
 }
 
 void Tinker::resizeEvent(QResizeEvent *)
@@ -624,6 +631,7 @@ void Tinker::openImage()
 		
 		this->setWindowTitle(newTitle.c_str());
 
+		_notice->hide();
 		imageLabel->setPixmap(blankImage);
 		if (first)
 		{
