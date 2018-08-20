@@ -617,6 +617,7 @@ void Tinker::openImage()
 		if (!blankImage.load(fileNames[0]))
 		{
 			qDebug("Error loading image");
+			return;
 		}
 
 		bool first = false;
