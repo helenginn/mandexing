@@ -36,14 +36,14 @@
 Tinker::Tinker(QWidget *parent) : QMainWindow(parent)
 {
     this->resize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    
+
     this->setWindowTitle("Mandexing");
 	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 	QAction *openAct = fileMenu->addAction(tr("&Open..."));
 	connect(openAct, &QAction::triggered, this, &Tinker::openImage);
-	QAction *saveAs = fileMenu->addAction(tr("&Save matrix..."));
+	QAction *saveAs = fileMenu->addAction(tr("&Save state..."));
 	connect(saveAs, &QAction::triggered, this, &Tinker::saveMatrix);
-	QAction *loadMatrix = fileMenu->addAction(tr("&Load matrix..."));
+	QAction *loadMatrix = fileMenu->addAction(tr("&Load state..."));
 	connect(loadMatrix, &QAction::triggered, this, &Tinker::loadMatrix);
 	
 	myDialogue = NULL;
@@ -636,7 +636,7 @@ void Tinker::openImage()
 void Tinker::loadMatrix()
 {
 	delete fileDialogue;
-	fileDialogue = new QFileDialog(this, tr("Load matrix"),
+	fileDialogue = new QFileDialog(this, tr("Load state"),
 									 tr("Mandexing matrix file (*.dat)"));
 	fileDialogue->setFileMode(QFileDialog::AnyFile);
 	fileDialogue->show();
