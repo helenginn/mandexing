@@ -345,17 +345,25 @@ void Tinker::transformToDetectorCoordinates(int *x, int *y)
 {
 	double w = blankImage.width();
 	double h = blankImage.height();
-	double w2 = overlayView->width();
-	double h2 = overlayView->height();
+	double winw = overlayView->width();
+	double winh = overlayView->height();
 	double bx = _detector.getBeamCentre().x;
 	double by = _detector.getBeamCentre().y;
-	double window_bx = bx * w2 / w;
-	double window_by = by * h2 / h;
+	double det_bx = bx * w / winw;
+	double det_by = by * h / winh;
 	
 	std::cout << *x << ", " << *y << " to ";
 	
-	*x = (*x - window_bx) * w / w2 + bx;
-	*y = (*y - window_by) * w / w2 + by;
+	*x *= w / winw;
+	*y *= h / winh;
+	
+	/*
+	*x -= det_bx;
+	*y -= det_by;
+	
+	*/
+//	*x = (*x - window_bx) * w / winw + bx;
+//	*y = (*y - window_by) * w / winw + by;
 
 	std::cout << *x << ", " << *y << std::endl;
 }
